@@ -1,9 +1,11 @@
-const admin = require("../config/firebase");
+// const admin = require("../config/firebase");
 const User = require("../models/userModel");
 const dotenv = require('dotenv');
 dotenv.config();
 const { OAuth2Client } = require('google-auth-library');
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 
 exports.sendOtp = async (req, res) => {
     const { phoneNumber } = req.body;

@@ -1,11 +1,10 @@
-const admin = require("firebase-admin");
+// const admin = require("firebase-admin");
+// const serviceAccount = require("./firebase-service-account.json");
 
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
+// admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount),
+// });
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-});
+// console.log("Firebase Admin SDK initialized successfully");
 
-console.log("Firebase Admin SDK initialized successfully");
-
-module.exports = admin;
+// module.exports = admin;
