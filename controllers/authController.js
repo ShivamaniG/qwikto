@@ -8,51 +8,15 @@ const jwt = require("jsonwebtoken");
 
 
 exports.sendOtp = async (req, res) => {
-    const { phoneNumber } = req.body;
 
-    if (!phoneNumber) {
-        return res.status(400).json({ error: "Phone number is required" });
-    }
-
-    try {
-        const verificationId = `dummyVerificationId_${phoneNumber}`;
-        res.status(200).json({
-            message: "OTP sent successfully",
-            verificationId,
-        });
-    } catch (error) {
-        res.status(400).json({
-            error: "Failed to send OTP",
-            message: error.message,
-        });
-    }
 };
 
 exports.verifyOtp = async (req, res) => {
-    const { verificationId, otpCode } = req.body;
 
-    if (!verificationId || !otpCode) {
-        return res.status(400).json({ error: "Verification ID and OTP code are required" });
-    }
-
-    try {
-        // Simulating OTP verification (Firebase client-side SDK should handle this)
-        if (otpCode === "123456") { 
-            const customToken = await admin.auth().createCustomToken(verificationId);
-            res.status(200).json({ message: "OTP verified successfully", token: customToken });
-        } else {
-            throw new Error("Invalid OTP");
-        }
-    } catch (error) {
-        res.status(400).json({
-            error: "Failed to verify OTP",
-            message: error.message,
-        });
-    }
 };
 
 exports.signup = async (req, res) => {
-    const { name, email, password, phone, termsAccepted } = req.body;
+    const { name, email, password, phone, termsAccepted, profilePic } = req.body;
 
     if (!termsAccepted) {
         return res.status(400).json({ error: "You must accept the terms and conditions." });
@@ -68,6 +32,7 @@ exports.signup = async (req, res) => {
             phone,
             password: hashedPassword,
             termsAccepted,
+            profilePic, 
         });
 
         res.status(201).json({ message: "User registered successfully", user });
