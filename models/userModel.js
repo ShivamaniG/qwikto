@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String },
     oauthProvider: { type: String, enum: ["google", "twitter"], default: null },
     termsAccepted: { type: Boolean, required: true },
+    profilePic: { type: String, default: null }, 
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
