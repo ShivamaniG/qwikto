@@ -8,21 +8,17 @@ const orderSchema = new mongoose.Schema({
             quantity: { type: Number, required: true },
         }
     ],
-    delivery_partner_tip: { type: Number, default: 0 },  // Tip for delivery partner
-    delivery_instructions: { type: String, default: "" },  // Optional delivery instructions
-    payment_mode: { 
-        type: String, 
-        enum: ["credit_card", "debit_card", "net_banking", "cash_on_delivery"], 
-        required: true 
+    delivery_instructions: { type: String, default: "" },
+    delivery_tip: { type: Number, default: 0 },
+    coupon: { type: String, default: "" },
+    discount: { type: Number, default: 0 },
+    bill_summary: {
+        subtotal: { type: Number, required: true },
+        tax: { type: Number, required: true },
+        total: { type: Number, required: true },
     },
-    payment_status: { 
-        type: String, 
-        enum: ["pending", "completed", "failed"], 
-        default: "pending" 
-    },
-    razorpay_order_id: { type: String, default: "" },
-    razorpay_payment_id: { type: String, default: "" },
-    razorpay_signature: { type: String, default: "" },
+    payment_method: { type: String, required: true }, // e.g., "UPI", "Card", "Net Banking"
+    payment_status: { type: String, default: "Pending" }, // e.g., "Success", "Failed"
     createdAt: { type: Date, default: Date.now },
 });
 

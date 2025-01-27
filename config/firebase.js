@@ -1,10 +1,23 @@
-// const admin = require("firebase-admin");
-// const serviceAccount = require("./firebase-service-account.json");
+const admin = require("firebase-admin");
+const axios = require("axios");
 
-// admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount),
-// });
+async function initializeFirebase() {
+  try {
+    const response = await axios.get('https://res.cloudinary.com/dot6dzqn6/raw/upload/v1737979489/t849kcw27dqapolnjmyu.json');
+    
+    const serviceAccount = response.data;
 
-// console.log("Firebase Admin SDK initialized successfully");
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+      databaseURL: "https://qwikto-97b8e.firebaseio.com", 
+    });
 
-// module.exports = admin;
+    console.log("Firebase initialized successfully!");
+  } catch (error) {
+    console.error("Error initializing Firebase:", error);
+  }
+}
+
+initializeFirebase();
+
+module.exports = admin;

@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const { OAuth2Client } = require('google-auth-library');
 const bcrypt = require("bcryptjs");
+<<<<<<< HEAD
 const jwt = require("jsonwebtoken");
 
 
@@ -13,6 +14,52 @@ exports.sendOtp = async (req, res) => {
 
 exports.verifyOtp = async (req, res) => {
 
+=======
+// const jwt = require("jsonwebtoken");
+const admin = require("../config/firebase");
+
+exports.sendOTP = async (req, res) => {
+    try {
+        const { phoneNumber } = req.body;
+    
+        if (!phoneNumber) {
+          return res.status(400).json({ success: false, message: "Phone number is required" });
+        }
+    
+        const phoneNumberPattern = /^\+?[1-9]\d{1,14}$/; // Allows international phone numbers
+    
+        if (!phoneNumberPattern.test(phoneNumber)) {
+          return res.status(400).json({ success: false, message: "Invalid phone number format" });
+        }
+    
+        res.status(200).json({ success: true, message: "OTP sent (client-side handling)" });
+    
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message });
+      }
+};
+
+exports.verifyOTP = async (req, res) => {
+  try {
+    const { idToken } = req.body;
+
+    if (!idToken) {
+      return res.status(400).json({ success: false, message: "ID Token is required" });
+    }
+
+    const decodedIdToken = await admin.auth().verifyIdToken(idToken);
+
+    const sessionCookie = await admin.auth().createSessionCookie(idToken, {
+      expiresIn: 60 * 60 * 1000,
+    });
+
+    res.status(200).json({ success: true, sessionId: sessionCookie });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+>>>>>>> b600536 (Initial commit)
 };
 
 exports.signup = async (req, res) => {
@@ -32,7 +79,11 @@ exports.signup = async (req, res) => {
             phone,
             password: hashedPassword,
             termsAccepted,
+<<<<<<< HEAD
             profilePic, 
+=======
+            profilePic, // Add profilePic field here
+>>>>>>> b600536 (Initial commit)
         });
 
         res.status(201).json({ message: "User registered successfully", user });

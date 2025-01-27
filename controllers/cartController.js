@@ -56,11 +56,20 @@ exports.viewCart = async (req, res) => {
             return res.status(200).json({ message: "Your cart is empty" });
         }
 
-        res.status(200).json({ cart });
+        // Calculate total amount
+        const totalAmount = cart.products.reduce((total, item) => {
+            const productPrice = item.product_id.product_price || 0; // Correct product price field
+            const quantity = item.quantity || 1; // Quantity
+            return total + productPrice * quantity;
+        }, 0);
+
+        res.status(200).json({ cart, totalAmount });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
+
 
 
 exports.updateCart = async (req, res) => {
