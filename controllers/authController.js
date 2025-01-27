@@ -4,17 +4,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 const { OAuth2Client } = require('google-auth-library');
 const bcrypt = require("bcryptjs");
-<<<<<<< HEAD
-const jwt = require("jsonwebtoken");
 
 
-exports.sendOtp = async (req, res) => {
-
-};
-
-exports.verifyOtp = async (req, res) => {
-
-=======
 // const jwt = require("jsonwebtoken");
 const admin = require("../config/firebase");
 
@@ -59,7 +50,7 @@ exports.verifyOTP = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
->>>>>>> b600536 (Initial commit)
+
 };
 
 exports.signup = async (req, res) => {
@@ -79,11 +70,7 @@ exports.signup = async (req, res) => {
             phone,
             password: hashedPassword,
             termsAccepted,
-<<<<<<< HEAD
-            profilePic, 
-=======
             profilePic, // Add profilePic field here
->>>>>>> b600536 (Initial commit)
         });
 
         res.status(201).json({ message: "User registered successfully", user });
