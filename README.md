@@ -122,6 +122,8 @@ CREATE TABLE products (
     FOREIGN KEY (vendor_id) REFERENCES Users(id) ON DELETE CASCADE
 );
 ```
+![Database Schema](https://github.com/ShivamaniG/qwikto/blob/fecb6bd248f6f1196fb01f2fea69b9274b08b415/Db.jpg?raw=true)
+
 
 ---
 
